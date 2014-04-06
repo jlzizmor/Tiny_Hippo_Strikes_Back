@@ -1,0 +1,4 @@
+Running strategy:
+Strategy per quadrant. This plan can be reused for each section if desired.
+
+Starting point: top left corner
