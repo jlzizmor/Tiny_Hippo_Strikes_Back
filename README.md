@@ -1,7 +1,7 @@
 Tiny_Hippo_Strikes_Back
 =======================
 
-Repo for RBE2002D14 group 1
+Repository for RBE2002D14 group 1
 
 Participating in course RBE 2002
 
