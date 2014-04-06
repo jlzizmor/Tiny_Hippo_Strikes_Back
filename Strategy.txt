@@ -1,4 +1,23 @@
+/*
+ * Jacob Zizmor
+ * 4-6-2014
+ * RBE 2002
+ * Group 1
+ *
+ * Developed by Jacob Zizmor, Arthur Fulgoni, Joshua Frischia
+ *
+ * Basic outline of approach for final project of RBE 2002
+*/
+
 Running strategy:
 Strategy per quadrant. This plan can be reused for each section if desired.
 
 Starting point: top left corner
+
+select variables
+
+The following can be repeated in a function and reused for each row (assumes eraser has been raised and is off the board):
+	even out robot (repeatable function)
+		aquire all force readings
+	move towards the right boundry
+		if autonomous, until limit switch, located on the end of the robot, is activiated
