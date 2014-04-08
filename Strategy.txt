@@ -1,0 +1,65 @@
+/*
+ * Jacob Zizmor
+ * 4-6-2014
+ * RBE 2002
+ * Group 1
+ *
+ * Developed by Jacob Zizmor, Arthur Fulgoni, Joshua Frischia
+ *
+ * Basic outline of approach for final project of RBE 2002
+*/
+
+Running strategy:
+Strategy per quadrant. This plan can be reused for each section if desired.
+
+Starting point: top left corner
+
+select variables:
+	height of eraser/planetary gear system**
+	+- error of distributed force reading
+	needed force of the eraser
+	number of discrete rows (ie, length of quardent = discrete rows + remainder)
+
+The following can be repeated in a function and reused for each row (assumes eraser has been raised and is off the board):
+	even out robot and apply the eraser (repeatable function)
+	* this must be done for each row because as the robot moves vertically, the angle the rope makes with board and the robot will change, tiling the robot.
+		aquire all force readings of feet
+		determine average and store that value
+			the average of the force values of all 4 feet will be the force evenly distributed
+		rotating through each foot, move the foot in/out until the force reading matches the average, +- the accepted error
+		extend the eraser, monitoring the force until it equals the desired force +- the accepted error
+			it is safe now to extend the eraser because the robot is even with the board and the eraser will be applied parralel to the board
+
+	move towards the right boundry while spinning the planetary gear
+		if autonomous, until limit switch, located on the end of the robot, is activiated
+	
+	when at the end
+		stop the gear from spinning
+		raise the system
+
+	lower the robot by the length of the eraser system
+	move all the way to the left edge
+		if autonomous, until limit switch, located on the end of the robot, is activiated
+
+for the row == the number of discrete rows-1 (where rows are numbered 0-x):
+	*there must be a limit switch on the end of the robot, regardless of autonomy
+	if the limit switch is engadged, do nothing
+		this means that the height of the quadrent is a multiple of the eraser height
+	otherwise, lower the robot until it engadges +- accepted error
+	repeat above
+		the erased area will overlap part of the area erased on the previous run, but in order to get as much of the board as possible this row is necesary
+
+**
+				__________________
+			--------             |
+			                     |
+			                     |
+	|		                |    |
+	|		planetary       |    |
+	|		 gearing        |    | height
+	|		  system        |    |
+	|		                |    |
+			                     |
+			 eraser              |
+			--------             |
+			    __________________
