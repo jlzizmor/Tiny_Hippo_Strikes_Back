@@ -9,14 +9,20 @@
 */
 
 // all Servo objects
-Servo planetary;
-Servo hook;
-Servo eraser;
+Servo planetary;			// Servo which spins the planetary gears
+Servo hook;					// Servo which moves the whinch hook forward and back
+Servo eraser;				// Servo which moves the eraser into the robot and out of the robot
 
 // pins of each servo/motor, to be attached later
-int hook_pin = -1;
-int planetary_pin = -1;
-int eraser_pin = 1;
+int hook_pin = -1;			// pin of the hook Servo
+int planetary_pin = -1;		// pin of the planetary Servo
+int eraser_pin = 1;			// pin of the eraser Servo
+
+// pins
+int top_left_foot = -1;		// pin to the pot of the top left foot
+int top_right_foot = -1;	// pin to the pot of the top right foot
+int bottom_left_foot = -1;	// pin to the pot of the bottom left foot
+int bottom_right_foot = -1;	// pin to the pot of the bottom right foot
 
 // all other variables
 int eraser_force = -1;		// the constant force required by the eraser system
