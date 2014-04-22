@@ -38,3 +38,7 @@ int run_main_function = 1;	// the comparison to run the main function
 
 float acc_err_feet = -1.0;	// the accepted error for the verticle comparison of the top feet and bottom feet
 							// based on the hook movement design, v1
+
+const int CQ_SIZE = 10;		// the size of the circular queue used for sampling the eraser pot readings
+float pot_read_CQ[CQ_SIZE];	// the circular queue used for sampling the eraser pot readings
+							// the data type is an array of floats, although it will be used as a circular queue, inspired by homework 4 question 2
