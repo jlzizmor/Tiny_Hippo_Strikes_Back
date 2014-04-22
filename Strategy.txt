@@ -9,6 +9,8 @@
  * Basic outline of approach for final project of RBE 2002
 */
 
+The below is the strategy if we decide to move. --
+
 Running strategy:
 Strategy per quadrant. This plan can be reused for each section if desired.
 
