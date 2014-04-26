@@ -16,18 +16,24 @@
 void initCQ(float cq[]) {
 	int size = sizeof(cq)/sizeof(float);
 	for (int i = 0; i < size; i++) {
-		cq[i] = 0;
+		cq[i] = -1;
 	}
 }
 
-// this function adds a value to the circular queue
-// place is the index to add the the new value
+// this function queues a value to the circular queue
+// pos is the index to add the the new value
 // value is the new value to add
 // after running, place is incremented
 // because integers are passed by value, the incremented place is then returned
 // the new value should be store by the user
-int add(float cq[], int place, float value) {
-	cq[place] = value;
-	place += 1;
-	return place;
+int queue(float cq[], int pos, float value) {
+	cq[pos] = value;
+	pos += 1;
+	return pos;
+}
+
+// this function returns the value at a specified index
+// pos is the index of the value to be returned
+int get(float cq[], int pos) {
+	return cq[pos];
 }
