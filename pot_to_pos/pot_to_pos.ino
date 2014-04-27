@@ -16,8 +16,8 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
   ans = pot_to_pos(0,810,0,1,0);
-  Serial.println(pot_to_pos(0,810,0,1,A0));
-  delay(10);
+  Serial.println(pot_to_pos(0,895,0,1,A0));
+  delay(100);
 }
 
 // This function converts a pot input to its position
