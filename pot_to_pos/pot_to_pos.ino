@@ -15,8 +15,8 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  ans = pot_to_pos(0,810,0,1,0);
-  Serial.println(pot_to_pos(0,895,0,1,A0));
+  Serial.println(pot_to_pos(0,895,0,1,A0));		// 0 and 895 are the pot limits, not for the force sensor
+  												// 0 and 1 are for reference
   delay(100);
 }
 
