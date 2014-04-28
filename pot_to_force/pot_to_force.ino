@@ -8,8 +8,8 @@
  * Potentiometer Input to Force
 */
 #include <pot_to_pos.ino>
-int k = 2;
-int pot_zero = 0;
+int k = 2;						// spring constant
+int pot_zero = 0;				// equilbrium position of the spring
 
 void setup() {
 	Serial.begin(115200);
@@ -30,8 +30,8 @@ void loop() {
 	// pin is the pin of the pot being referenced
 // outputs: float value equal to the force
 float pot_to_force(int k, int ia, int ib, int xa, int xb, int pin) {
-	float del_x = abs(pot_zero-pot_to_pos(ia, ib, xa, xb, pin));  // displacement
-                                                                      // pot_zero is the equilibrium position
+	float del_x = abs(pot_zero-pot_to_pos(ia, ib, xa, xb, pin));  		// displacement
+                                                                     	// pot_zero is the equilibrium position
 	return k*del_x;      // F=k*x
 }
 
