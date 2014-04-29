@@ -23,11 +23,6 @@ int planetary_pin = -1;				// pin of the planetary Servo
 int hook_pin = -1;					// pin of the hook Servo
 int eraser_pin = 1;					// pin of the eraser Servo
 
-// variables
-int eKp;							// the Kp value of the eraser
-int eKd;							// the Kd value of the eraser
-int eKi;							// the Ki value of the eraser
-
 // pins
 int legTL = -1;						// pin to the pot of the top left foot
 int legTR = -1;						// pin to the pot of the top right foot
@@ -40,11 +35,9 @@ int buttonISR = -1;					// pin to the button which starts the ISR
 
 int LED = -1;						// pin to the warning LED
 
-// PID
-double eSetpoint;					// the goal value of the eraser PID
-double eInput;						// the input of the eraser PID
-double eOutput;						// the output of the eraser PID
-PID ePID(&)							// FIX*****************
+// PD
+int eKp;							// the Kp value of the eraser
+int eKd;							// the Kd value of the eraser
 
 void setup() {
 	// attach all Servo objects

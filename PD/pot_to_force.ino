@@ -11,6 +11,7 @@
 int k = 2;						// spring constant
 int pot_zero = 0;				// equilbrium position of the spring
 
+/*
 void setup() {
 	Serial.begin(115200);
 }
@@ -19,6 +20,7 @@ void loop() {
 	Serial.println(pot_to_force(k, 0, 895, 0, 1, A0));
 	delay(2000);
 }
+*/
 
 // this function converts a potentiometer input to it's force value
 // inputs:
@@ -27,11 +29,11 @@ void loop() {
 	// ib is the analog input at position b
 	// xa is the position at a
 	// xb is the position at b
-	// val is the value to be changed to a force
+	// val is the value to change to a force
 // outputs: float value equal to the force
 float pot_to_force(int k, int ia, int ib, int xa, int xb, int val) {
 	float del_x = abs(pot_zero-pot_to_pos(ia, ib, xa, xb, val));  		// displacement
-                                                                     	// pot_zero is the equilibrium position
+                                                                     	        // pot_zero is the equilibrium position
 	return k*del_x;      // F=k*x
 }
 
