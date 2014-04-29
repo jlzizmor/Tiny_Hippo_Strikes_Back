@@ -10,7 +10,8 @@
 
 #include PID_v1
 #include Servo.h
-#include <start_button_ISR>
+#include <start_button_ISR.ino>
+#include <checkForce.ino>
 
 // all Servo objects
 Servo planetary;					// Servo which spins the planetary gears
@@ -33,17 +34,22 @@ int eraser_pot = -1;				// pin to the pot of the eraser
 int hook_pot = -1;					// pin to the pot of the hook
 int buttonISR = -1;					// pin to the button which starts the ISR
 
-int LED = -1;						// pin to the warning LED
+// LEDs
+int warningLED = -1;				// pin to the warning LED
+int tlLED = -1;						// pin to light when the top left foot is making contact
+int trLED = -1;						// pin to light when the top right foot is making contact
+int blLED = -1;						// pin to light when the bottom left foot is making contact
+int brLED = -1;						// pin to light when the bottom right foot is making contact
 
 // PD
 int eKp;							// the Kp value of the eraser
 int eKd;							// the Kd value of the eraser
 
 // Global variables
-extern to_do;						// the variable modified by the ISR
-extern run_main_function;			// the comparison to know when to start all actions
-extern tooMuch;						// comparison variable for too much force
-extern keepGoing;					// comparison variable to keep moving
+extern int to_do;					// the variable modified by the ISR
+extern int run_main_function;		// the comparison to know when to start all actions
+extern int tooMuch;					// comparison variable for too much force
+extern int keepGoing;				// comparison variable to keep moving
 
 void setup() {
 	// attach all Servo objects
@@ -94,7 +100,16 @@ void loop() {
 																// the board, incase placed back on an angle
 		}
 		
-		while (check)
+		while (check_force_all(legTL, legTR, legBL, legBR)==tooMuch) {
+			digitalWrite(warningLED, HIGH);						// light the LED symbolising too much force is
+																// being applied
+			planetary.write(90);								// stop the planetary gear from spinning
+			eraser_in();										// bring in the planetary gear system as far as
+																// possible
+		}
+
+		digitalWrite(warningLED, LOW);							// whether too much force was previously applied
+																// or not, shut off the warning LED
 
 	// run PID of eraser
 }
