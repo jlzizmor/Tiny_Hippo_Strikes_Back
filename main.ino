@@ -39,49 +39,60 @@ int LED = -1;						// pin to the warning LED
 int eKp;							// the Kp value of the eraser
 int eKd;							// the Kd value of the eraser
 
+// Global variables
+extern to_do;						// the variable modified by the ISR
+extern run_main_function;			// the comparison to know when to start all actions
+
 void setup() {
 	// attach all Servo objects
-	planetary.attach(planetary_pin);						// attach the planetary motor
-	hook.attach(hook_pin);									// attach the hook motor
-	eraser.attach(eraser_pin);								// attach the eraser motor
+	planetary.attach(planetary_pin);							// attach the planetary motor
+	hook.attach(hook_pin);										// attach the hook motor
+	eraser.attach(eraser_pin);									// attach the eraser motor
 
 	// pinMode
-	pinMode(legTL, INPUT);									// set all of the pots to INPUT
+	pinMode(legTL, INPUT);										// set all of the pots to INPUT
 	pinMode(legTR, INPUT);
 	pinMode(legBL, INPUT);
 	pinMode(legBR, INPUT);
 	pinMode(eraser_pot, INPUT);
 
-	pinMode(buttonISR, INPUT);								// set the button to INPUT
+	pinMode(buttonISR, INPUT);									// set the button to INPUT
 
-	pinMode(LED, OUTPUT);									// set the LED to OUTPUT
+	pinMode(LED, OUTPUT);										// set the LED to OUTPUT
 
 	// init ISR
-	attachInterrupt(-1, start_button_ISR, RISING);			// initialize ISR
-															// activates upon button press
-															// while the ISR will run if the
-															// button is pressed again, there
-															// will be no lasting effect other
-															// than a small time delay
-															// **** -1 must be changed ****
+	attachInterrupt(-1, start_button_ISR, RISING);				// initialize ISR
+																// activates upon button press
+																// while the ISR will run if the
+																// button is pressed again, there
+																// will be no lasting effect other
+																// than a small time delay
+																// **** -1 must be changed ****
 
 	// adjust the hook till the robot is balanced
-	hook_adjust(int legTL, int legTR, int legBL, int legBR); // adjust the position of the hook
-															 // to balance the robot on the
-															 // current position of the board
-															 // NOTE: because the robot is not
-															 // moving around the board, there
-															 // is no need to check this position
-															 // at any other time. If the robot
-															 // were to move, this action should
-															 // be moved to loop() with PID
+	hook_adjust(int legTL, int legTR, int legBL, int legBR);	// adjust the position of the hook
+																// to balance the robot on the
+																// current position of the board
+																// NOTE: because the robot is not
+																// moving around the board, there
+																// is no need to check this position
+																// at any other time. If the robot
+																// were to move, this action should
+																// be moved to loop() with PID
 }
 
 void loop() {
-	// inside while loop until ISR
-	
-	// check force for too much force
-		// light LED in while loop
+	if (to_do==run_main_function) {								// only begin motion when the ISR has
+																// been activated, ie the button pressed
+		while (contact(legTL, legTR, legBL, legBR)) {			// check the contact of all of the feet
+			planetary.write(90);								// when the robot is off of the board, stop
+																// the planetary gears from spinning
+			eraser_in();										// bring the planetary system up into the
+																// in order to be safe when placed back onto
+																// the board, incase placed back on an angle
+		}
+		
+		while ()
 
 	// run PID of eraser
 }
