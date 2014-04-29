@@ -43,11 +43,13 @@ int checkForce(int pin){
 //	keepGoing otherwise
 // modified by Jacob Zizmor
 int check_force_all(int one, int two, int three, int four) {
-	int pt1 = checkForce(one);
-	int pt2 = checkForce(two);
-	int pt3 = checkForce(three);
-	int pt4 = checkForce(four);
+	int pt1 = checkForce(one);			// result of check on foot 1
+	int pt2 = checkForce(two);			// result of check on foot 2
+	int pt3 = checkForce(three);		// result of check on foot 3
+	int pt4 = checkForce(four);			// result of check on foot 4
 
+	// if too much force is being applied to at least one of the feet
+	// return tooMuch
 	if ((pt1 == tooMuch) || (pt2 == tooMuch) || (pt3 == tooMuch) || (pt4 == tooMuch)) {
 		return tooMuch;
 	}

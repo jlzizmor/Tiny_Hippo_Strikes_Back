@@ -110,6 +110,7 @@ void loop() {
 
 		digitalWrite(warningLED, LOW);							// whether too much force was previously applied
 																// or not, shut off the warning LED
+		planetary.write(planetary_speed);						// spin the planetary gear
 
 	// run PID of eraser
 }
