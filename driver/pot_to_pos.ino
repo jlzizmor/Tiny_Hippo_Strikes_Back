@@ -8,17 +8,6 @@
  * Potentiometer Input to Position
 */
 float ans;
-void setup() {
-  Serial.begin(115200);
-  ans = 0;
-}
-
-// the loop routine runs over and over again forever:
-void loop() {
-  Serial.println(pot_to_pos(0,895,0,1,A0));		// 0 and 895 are the pot limits, not for the force sensor
-  												// 0 and 1 are for reference
-  delay(100);
-}
 
 // This function converts a pot input to its position
 // inputs:
@@ -26,9 +15,9 @@ void loop() {
 //	ib = the analog reading at point b
 //	xa = the position at point a
 //	xb = the position at point b
-//	pin = the pin of the pot
+//	val = the value of to change to position
 // output: the position at the current state
-float pot_to_pos(int ia, int ib, int xa, int xb, int pin) {
+float pot_to_pos(int ia, int ib, int xa, int xb, int val) {
 	int del_i = abs(ib-ia);	// the change in input readings
 	int del_x = abs(xb-xa);	// the change in position
 
@@ -39,5 +28,5 @@ float pot_to_pos(int ia, int ib, int xa, int xb, int pin) {
 														// to the position
 													// because there is no software offset,
 														// b == 0
-	return slope*analogRead(pin);
+	return slope*val;
 }

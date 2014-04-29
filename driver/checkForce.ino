@@ -17,13 +17,13 @@ extern int keepGoing;	// result if less than the maximum force is applied
  
 //This function reads in a value from a pin
 //the value is the potentiometer value at a given position
-//it determines whether the position is at is limit or not
+//it determines whether the position is at is limit or not (ib)
 //returns a value depending on the outcome 
-int checkForce(int pin){
+int checkForce(int pin, int ib){
   
   int value;                  //intializes value
   value = analogRead(pin);    //assigns value to the potentiometer reading at a given pin value
-  if (value == ia){           //if the value of the pot is equal to the value of the pot when
+  if (value == ib){           //if the value of the pot is equal to the value of the pot when
   							  //its at its limit of in towards the robot 
     return tooMuch;           //return there is too much force applied
   }
@@ -38,15 +38,19 @@ int checkForce(int pin){
 //	two: pin of foot 2
 //	three: pin of foot 3
 //	four: pin of foot 4
+//	ib1: analog read extent of foot 1
+//	ib2: analog read extent of foot 2
+//	ib3: analog read extent of foot 3
+//	ib4: analog read extent of foot 4
 // output:
 //	tooMuch if any of the feet result in too much force
 //	keepGoing otherwise
 // modified by Jacob Zizmor
-int check_force_all(int one, int two, int three, int four) {
-	int pt1 = checkForce(one);			// result of check on foot 1
-	int pt2 = checkForce(two);			// result of check on foot 2
-	int pt3 = checkForce(three);		// result of check on foot 3
-	int pt4 = checkForce(four);			// result of check on foot 4
+int check_force_all(int one, int two, int three, int four, int ib1, int ib2, int ib3, int ib4) {
+	int pt1 = checkForce(one, ib1);			// result of check on foot 1
+	int pt2 = checkForce(two, ib2);			// result of check on foot 2
+	int pt3 = checkForce(three, ib3);		// result of check on foot 3
+	int pt4 = checkForce(four, ib4);			// result of check on foot 4
 
 	// if too much force is being applied to at least one of the feet
 	// return tooMuch

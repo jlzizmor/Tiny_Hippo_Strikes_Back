@@ -28,10 +28,6 @@ extern int eIb;								// analog read at point b
 extern int eXa;								// distance at point a
 extern int eXb;								// distance at point b
 
-void setup() {}
-
-void loop() {}
-
 // controls all PD actions
 // also gathers all necesary information, makes not calculations
 // inputs:

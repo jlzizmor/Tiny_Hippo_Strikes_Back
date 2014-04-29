@@ -9,6 +9,9 @@
  * Contact of a foot is checked for an individual foot.
 */
 
+int min_read = -1;						// the minimum analog read value which represents no
+										// contact between a foot and the board
+
 // check to see if the reading from the given foot is equal to or less than the minimum
 // the minimum allows for the non-digital nature of the potentiometer
 // input:
@@ -16,7 +19,7 @@
 // output:
 //	boolean value, true is in contact
 boolean foot_contact(int pin) {
-	return analogRead(pin)<=min;	// return boolean result of this comparison
+	return analogRead(pin)<=min_read;	// return boolean result of this comparison
 }
 
 // check if any of the feet are in contact as well as turning on the proper
@@ -25,17 +28,17 @@ boolean foot_contact(int pin) {
 // then turns on the LEDs for those feet which are in contact
 //	contact uses the definition provided in foot_contact()
 // inputs:
-	oneF = pin of foot 1
-	twoF = pin of foot 2
-	threeF = pin of foot 3
-	fourF = pin of foot 4
-	oneL = LED corresponding to foot 1
-	twoL = LED corresponding to foot 2
-	threeL = LED corresponding to foot 3
-	fourL = LED corresponding to foot 4
+//	oneF = pin of foot 1
+//	twoF = pin of foot 2
+//	threeF = pin of foot 3
+//	fourF = pin of foot 4
+//	oneL = LED corresponding to foot 1
+//	twoL = LED corresponding to foot 2
+//	threeL = LED corresponding to foot 3
+//	fourL = LED corresponding to foot 4
 // output:
-	a boolean value if all four feet are in contact
-	true for all in contact
+//	a boolean value if all four feet are in contact
+//	true for all in contact
 boolean contact(int oneF, int twoF, int threeF, int fourF, int oneL, int twoL, int threeL, int fourL) {
 	boolean feet[4];			// results for each check on contact for feet 1-4
 	int leds[4] = {oneL, twoL, threeL, fourL};	// pins of each led
