@@ -30,3 +30,5 @@ int eXa = -1;				// distance assosiated with point a of pot used for the force s
 							// of the eraser
 int eXb = -1;				// distance assosiated with point b of pot used for the force sensor
 							// of the eraser
+int tooMuch = 1;			// comparison variable for too much force
+int keep Going = 0;			// comparison variable to keep moving

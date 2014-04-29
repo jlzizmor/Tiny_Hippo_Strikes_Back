@@ -42,6 +42,8 @@ int eKd;							// the Kd value of the eraser
 // Global variables
 extern to_do;						// the variable modified by the ISR
 extern run_main_function;			// the comparison to know when to start all actions
+extern tooMuch;						// comparison variable for too much force
+extern keepGoing;					// comparison variable to keep moving
 
 void setup() {
 	// attach all Servo objects
@@ -92,7 +94,7 @@ void loop() {
 																// the board, incase placed back on an angle
 		}
 		
-		while ()
+		while (check)
 
 	// run PID of eraser
 }
