@@ -64,9 +64,8 @@ void setup() {
 															// will be no lasting effect other
 															// than a small time delay
 															// **** -1 must be changed ****
-	// init PID
 
-
+	// adjust the hook till the robot is balanced
 	hook_adjust(int legTL, int legTR, int legBL, int legBR); // adjust the position of the hook
 															 // to balance the robot on the
 															 // current position of the board
@@ -80,6 +79,7 @@ void setup() {
 
 void loop() {
 	// inside while loop until ISR
+	
 	// check force for too much force
 		// light LED in while loop
 
