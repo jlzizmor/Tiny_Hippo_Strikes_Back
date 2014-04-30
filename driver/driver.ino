@@ -75,6 +75,7 @@ extern int ibTR;					// analog read of the top right foot at the extent, point b
 extern int ibBL;					// analog read of the bottom left foot at the extent, point b
 extern int ibBR;					// analog read of the bottom right foot at the extent, point b
 
+
 void setup() {
 	// attach all Servo objects
 	planetary.attach(planetary_pin,1000,2000);					// attach the planetary motor

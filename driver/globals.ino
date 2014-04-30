@@ -18,8 +18,7 @@ int to_do = 0;				// the general input variable
 int run_main_function = 1;	// the comparison to run the main function
 							// compared with to_do
 							
-int eK = -1;				// spring constant of the spring used for the force sensor of the
-							// eraser
+int k = -1;					// spring constant of the spring used for the force sensor
 int eIa = 0;				// analog read of pot used for the force sensor of the eraser at point
 							// a, which is closer than point b
 int eIb = 994;				// analog read of pot used for the force sensor of the eraser at point
