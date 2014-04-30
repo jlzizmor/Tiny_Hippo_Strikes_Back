@@ -20,9 +20,9 @@ int run_main_function = 1;	// the comparison to run the main function
 							
 int eK = -1;				// spring constant of the spring used for the force sensor of the
 							// eraser
-int eIa = -1;				// analog read of pot used for the force sensor of the eraser at point
+int eIa = 0;				// analog read of pot used for the force sensor of the eraser at point
 							// a, which is closer than point b
-int eIb = -1;				// analog read of pot used for the force sensor of the eraser at point
+int eIb = 994;				// analog read of pot used for the force sensor of the eraser at point
 							// b, which is farther that point a
 int eXa = 0;				// distance assosiated with point a of pot used for the force sensor
 							// of the eraser, in inches
@@ -42,7 +42,7 @@ int hookspeed = -1;			//speed the hook's motor turns
 int front_rail_switch = -1;	//pin number of the front rail limit switch
 int back_rail_switch = -1;	//pin number of the back rail limit switch
 
-int freq1 = 500;			// sampling frequency 1 [Hz]
-int t1 = ;					// period of frequency 1 []
-int freq2 = 1000;			// sampling frequency 2 [Hz]
-int t2 = ;					// period of frequency 2 []
+int freq1 = 100;			// sampling frequency 1 [Hz]
+int t1 = 10;				// period of frequency 1 [ms]
+int freq2 = 500;			// sampling frequency 2 [Hz]
+int t2 = 2;					// period of frequency 2 [ms]
