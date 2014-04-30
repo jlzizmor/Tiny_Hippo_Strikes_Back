@@ -41,3 +41,7 @@ int keepGoing = 0;			// comparison variable to keep moving
 int k = -1;					// the k value of the springs used
 							// all the springs used have the same k value
 int pot_zero = -1;				// equilbrium position of the spring
+
+int hookspeed = -1;		//speed the hook's motor turns
+int front_rail_switch = -1;	//pin number of the front rail limit switch
+int back_rail_switch = -1;	//pin number of the back rail limit switch

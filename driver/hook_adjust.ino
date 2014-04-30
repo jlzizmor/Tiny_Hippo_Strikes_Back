@@ -8,18 +8,17 @@
  *and then runs the motor accordingly if the robot is too topheavy or bottomheavy
  *
  */
-#include Servo.h
-#include checkFeetPosition.ino
-extern hook_pin;
-extern balance;
-extern topHeavy;
-extern bottomHeavy;
+#include "Servo.h"
+#include <checkFeetPosition.ino>
+#include <driver.h>
 
-//make these gloabl variables
-int hookspeed = -1;		//speed the hook's motor turns
-int front_rail_switch = -1;	//pin number of the front rail limit switch
-int back_rail_switch = -1;	//pin number of the back rail limit switch
-
+extern Servo hook;
+extern int balance;
+extern int topHeavy;
+extern int bottomHeavy;
+extern int hookspeed;
+extern int front_rail_switch;
+extern int back_rail_switch;
 
 //This function takes in the four pins that coorespond to the four linear potentiometers on the feet and plugs them into the
 //the checkFeetPosition () function to see if the robot is topheavy, bottomheavy, or balanced.
@@ -39,20 +38,20 @@ void hook_adjust(int pin1, int pin2, int pin3, int pin4){
 
 		//if the robot is top  heavy 
 		if (checkFeetPosition(pin1, pin2, pin3, pin4) == topHeavy){ 
-			hook_pin.write(hookspeed); //shift the hook forward
+			hook.write(hookspeed); //shift the hook forward
 		}
 
 		//if the robot is bottomheavy
 		else if(checkFeetPosition(pin1, pin2, pin3, pin4) == bottomHeavy){
-			hook_pin.write(hookspeed-180); //shift the hook backwards
+			hook.write(hookspeed-180); //shift the hook backwards
 		}
 
 		//otherwise the robot should be balanced
 		else {
-			hook_pin.write(90); //stops the motor //otherwise stop the motor
+			hook.write(90); //stops the motor //otherwise stop the motor
 				check_balance = checkFeetPosition(pin1,pin2,pin3,pin4); //resets the balance check to it's proper value
 		}		
 	}
 
-	hook_pin.write(90); //stops the motor in case it is still running
+	hook.write(90); //stops the motor in case it is still running
 }

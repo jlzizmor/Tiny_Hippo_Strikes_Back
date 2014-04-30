@@ -165,6 +165,4 @@ void logic_out() {
 	digitalWrite(a2, HIGH);
 }
 
-void hook_adjust(int a, int b, int c, int d) {}	// not the actual function, a placeholder so it will compile
-
 void eraser_in() {}	// not actual function, placeholder so it will compile
