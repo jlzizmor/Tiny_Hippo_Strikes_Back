@@ -16,9 +16,9 @@ extern topHeavy;
 extern bottomHeavy;
 
 //make these gloabl variables
-int hookspeed = -1;
-int front_rail_switch = -1;
-int back_rail_switch = -1;
+int hookspeed = -1; 		//speed the hook's motor turns
+int front_rail_switch = -1; //pin number of the front rail limit switch
+int back_rail_switch = -1;  //pin number of the back rail limit switch
 
 
 //this function calls the checkFeetPosition () to see if the robot is topheavy, bottomheavy, or balanced
@@ -26,23 +26,30 @@ int back_rail_switch = -1;
 //either limit switch is pressed, in which case the motor is stopped.
 
 void hook_adjust(int pin1, int pin2, int pin3, int pin4){
+	
+	//create variables
 	int check_balance = checkFeetPosition(pin1,pin2,pin3,pin4);
 	int frontswitch = analogRead(front_rail_switch);
 	int backswitch = analogRead(back_rail_switch);
-	int not_pressed = 0
+	int not_pressed = 0;
 
-	while ((check_balance != balance) && (frontswitch == not_pressed) && (backswitch == not_pressed) ) //when the robot is not balanced and both limit switches are not pressed, do the following:
-	{ 
-	
-	if (checkFeetPosition(pin1, pin2, pin3, pin4) == topHeavy){ 
-		hook_pin.write(hookspeed); //shift the hook forward if topheavy
-	}
-	else if(checkFeetPosition(pin1, pin2, pin3, pin4) == bottomHeavy){
-		hook_pin.write(hookspeed-180); //shift the hook backwards if bottomheavy
-	}
-	else hook_pin.write(90); //stops the motor //otherwise stop the motor
-	check_balance = checkFeetPosition(pin1,pin2,pin3,pin4); //resets the blance check to it's proper value
-	}
+	//when the robot is not balanced and both limit switches are not pressed
+	while ((check_balance != balance) && (frontswitch == not_pressed) && (backswitch == not_pressed) ){ 
+
+		//if the robot is topheavy 
+		if (checkFeetPosition(pin1, pin2, pin3, pin4) == topHeavy){ 
+			hook_pin.write(hookspeed); //shift the hook forward
+		}
+
+		//if the robot is bottomheavy
+		else if(checkFeetPosition(pin1, pin2, pin3, pin4) == bottomHeavy){
+			hook_pin.write(hookspeed-180); //shift the hook backwards
+		}
+
+		//otherwise the robot should be balanced
+		else hook_pin.write(90); //stops the motor //otherwise stop the motor
+			check_balance = checkFeetPosition(pin1,pin2,pin3,pin4); //resets the balance check to it's proper value
+		}
 
 	hookpin.write(90); //stops the motor in case it is still running
 }
