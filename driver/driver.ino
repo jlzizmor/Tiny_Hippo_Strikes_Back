@@ -36,6 +36,9 @@ int eraser_pot = -1;				// pin to the pot of the eraser
 int hook_pot = -1;					// pin to the pot of the hook
 int buttonISR = -1;					// pin to the button which starts the ISR
 
+int eLimO = -1;						// pin of the outter limit switch for the eraser
+int eLimI = -1;						// pin of the inner limit switch for the eraser
+
 // LEDs
 int warningLED = -1;				// pin to the warning LED
 int tlLED = -1;						// pin to light when the top left foot is making contact
@@ -137,6 +140,9 @@ void loop() {
 		planetary.write(planetary_speed);													// spin the planetary gear
 
 		// run PD for eraser
+		if ((digitalRead(eLimI)==1) || (digitalRead(eLimO)==1)) {							// if the eraser is at either extreme of its movement
+			eraser.write(0);																// turn off the motor
+		}
 		magnitude = PD(eraser_pot, eKp, eKd);												// use PD to get the magnitude to drive the motor
 		read = analogRead(eraser_pot);														// record the position of the pot
 		if (pot_to_force(k, eIa, eIb, eXa, eXb, analogRead(eraser_pot)) > eraser_force) {	// set direction to spin the motor
