@@ -73,9 +73,9 @@ extern int ibBR;					// analog read of the bottom right foot at the extent, poin
 
 void setup() {
 	// attach all Servo objects
-	planetary.attach(planetary_pin);							// attach the planetary motor
-	hook.attach(hook_pin);										// attach the hook motor
-	eraser.attach(eraser_pin);									// attach the eraser motor
+	planetary.attach(planetary_pin,1000,2000);					// attach the planetary motor
+	hook.attach(hook_pin,1000,2000);							// attach the hook motor
+	eraser.attach(eraser_pin,1000,2000);						// attach the eraser motor
 
 	// pinMode
 	pinMode(legTL, INPUT);										// set all of the pots to INPUT
