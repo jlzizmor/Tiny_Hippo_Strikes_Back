@@ -16,7 +16,7 @@ extern topHeavy;
 extern bottomHeavy;
 
 //make these gloabl variables
-int hookspeed = -1;			//speed the hook's motor turns
+int hookspeed = -1;		//speed the hook's motor turns
 int front_rail_switch = -1;	//pin number of the front rail limit switch
 int back_rail_switch = -1;	//pin number of the back rail limit switch
 
@@ -30,8 +30,8 @@ void hook_adjust(int pin1, int pin2, int pin3, int pin4){
 	
 	//create variables
 	int check_balance = checkFeetPosition(pin1,pin2,pin3,pin4);	//sets variable equal to result of checkFeetPosition() function
-	int frontswitch = analogRead(front_rail_switch);			//front limit switch value
-	int backswitch = analogRead(back_rail_switch);				//back limit switch value
+	int frontswitch = analogRead(front_rail_switch);	//front limit switch value
+	int backswitch = analogRead(back_rail_switch);		//back limit switch value
 	int not_pressed = 0;
 
 	//when the robot is not balanced and both limit switches are not pressed
