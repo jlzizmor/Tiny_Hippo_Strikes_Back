@@ -9,6 +9,7 @@
 */
 
 #include "Servo.h"
+#include "TimerOne.h"
 #include <start_button_ISR.ino>
 #include <checkForce.ino>
 #include <PD.ino>

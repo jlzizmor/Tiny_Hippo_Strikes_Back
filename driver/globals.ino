@@ -9,9 +9,7 @@
 */
 
 // all global variables
-int eraser_force = -1;		// the constant force required by the eraser system
-							// -1 is the general use NULL value
-							// everything will still compile, and when we calculate the correct value we can change the number
+int eraser_force = 1;		// the constant force required by the eraser system [N]
 							
 int to_do = 0;				// the general input variable
 							// this variable will change based on the interrupt
@@ -38,10 +36,13 @@ int ibBR = -1;				// analog read of the bottom right foot at the extent, point b
 int tooMuch = 1;			// comparison variable for too much force
 int keepGoing = 0;			// comparison variable to keep moving
 
-int k = -1;					// the k value of the springs used
-							// all the springs used have the same k value
-int pot_zero = -1;				// equilbrium position of the spring
+int pot_zero = -1;			// equilbrium position of the spring
 
-int hookspeed = -1;		//speed the hook's motor turns
+int hookspeed = -1;			//speed the hook's motor turns
 int front_rail_switch = -1;	//pin number of the front rail limit switch
 int back_rail_switch = -1;	//pin number of the back rail limit switch
+
+int freq1 = 500;			// sampling frequency 1 [Hz]
+int t1 = ;					// period of frequency 1 []
+int freq2 = 1000;			// sampling frequency 2 [Hz]
+int t2 = ;					// period of frequency 2 []
