@@ -42,6 +42,7 @@ int front_rail_switch = -1;	//pin number of the front rail limit switch
 int back_rail_switch = -1;	//pin number of the back rail limit switch
 
 int freq1 = 100;			// sampling frequency 1 [Hz]
-int t1 = 10;				// period of frequency 1 [ms]
+int t1 = 10000;				// period of frequency 1 [us]
 int freq2 = 500;			// sampling frequency 2 [Hz]
-int t2 = 2;					// period of frequency 2 [ms]
+int t2 = 2000;					// period of frequency 2 [us]
+int time = 0;				// the time counter, to be modified by TimerOne

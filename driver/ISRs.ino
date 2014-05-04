@@ -12,9 +12,9 @@
 
 #include <globals.ino>
 
-extern to_do;
-extern run_main_function;
-extern time;
+extern int to_do;
+extern int run_main_function;
+extern int time;
 
 // This function sets the to_do variable to symbolize starting
 // Inputs: none

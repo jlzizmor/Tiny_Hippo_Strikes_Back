@@ -61,7 +61,7 @@ int calculatePD(int kp, int kd) {
 }
 
 int calcE() {
-	return eraser_force-pot_to_force(eK, eIa, eIb, eXa, eXb, current);
+	return eraser_force-pot_to_force(k, eIa, eIb, eXa, eXb, current);
 }
 
 // calculates proportional part of PD calculation

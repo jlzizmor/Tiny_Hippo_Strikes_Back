@@ -10,11 +10,12 @@
 
 #include "Servo.h"
 #include "TimerOne.h"
-#include <start_button_ISR.ino>
+#include <ISRs.ino>
 #include <checkForce.ino>
 #include <PD.ino>
 #include <checkFeetPosition.ino>
 #include <checkForce.ino>
+#include <hook_adjust.ino>
 
 // all Servo objects
 Servo planetary;					// Servo which spins the planetary gears
@@ -33,7 +34,7 @@ int legTR = -1;						// pin to the pot of the top right foot
 int legBL = -1;						// pin to the pot of the bottom left foot
 int legBR = -1;						// pin to the pot of the bottom right foot
 
-int eraser_pot = -1;				// pin to the pot of the eraser
+int eraser_pot = A8;				// pin to the pot of the eraser
 int hook_pot = -1;					// pin to the pot of the hook
 int buttonISR = -1;					// pin to the button which starts the ISR
 
@@ -42,10 +43,7 @@ int eLimI = -1;						// pin of the inner limit switch for the eraser
 
 // LEDs
 int warningLED = -1;				// pin to the warning LED
-int tlLED = -1;						// pin to light when the top left foot is making contact
-int trLED = -1;						// pin to light when the top right foot is making contact
-int blLED = -1;						// pin to light when the bottom left foot is making contact
-int brLED = -1;						// pin to light when the bottom right foot is making contact
+int fLED = -1;						// pin to light when the feet are making contact
 
 // PD
 int eKp = -1;						// the Kp value of the eraser
@@ -57,6 +55,9 @@ int a2 = -1;						// logic pin 2 of H bridge
 
 // motor speeds
 int planetary_speed = -1;			// the speed at which the planetary motor spins
+
+// Frequency Example
+int freq_ex = 31;					// the pin to show the sampling frequency
 
 // Global variables
 extern int eraser_force;			// the force to be applied by the eraser
@@ -74,7 +75,9 @@ extern int ibTL;					// analog read of the top left foot at the extent, point b
 extern int ibTR;					// analog read of the top right foot at the extent, point b
 extern int ibBL;					// analog read of the bottom left foot at the extent, point b
 extern int ibBR;					// analog read of the bottom right foot at the extent, point b
-
+extern int t1;						// period of frequency 1(100 Hz) [ms]
+extern int t2;						// period of frequency 2(500 Hz) [ms]
+extern int time;					// counter for TimerOne ISR
 
 void setup() {
 	// attach all Servo objects
@@ -92,10 +95,7 @@ void setup() {
 	pinMode(buttonISR, INPUT);									// set the button to INPUT
 
 	pinMode(warningLED, OUTPUT);								// set the LEDs to OUTPUT
-	pinMode(tlLED, OUTPUT);
-	pinMode(trLED, OUTPUT);
-	pinMode(blLED, OUTPUT);
-	pinMode(brLED, OUTPUT);
+	pinMode(fLED, OUTPUT);
 
 	// init ISR
 	attachInterrupt(-1, start_button_ISR, RISING);				// initialize ISR
@@ -106,8 +106,12 @@ void setup() {
 																// than a small time delay
 																// **** -1 must be changed ****
 
-	// adjust the hook till the robot is balanced
-	hook_adjust(legTL, legTR, legBL, legBR);	// adjust the position of the hook
+	// TimerOne ISR
+	Timer1.initialize(t1);										// initialize the timer to the
+																// desired sampling period
+	Timer1.attachInterrupt(timer);								// attach the timer ISR 
+
+	hook_adjust(legTL, legTR, legBL, legBR);					// adjust the position of the hook
 																// to balance the robot on the
 																// current position of the board
 																// NOTE: because the robot is not
@@ -119,9 +123,16 @@ void setup() {
 }
 
 void loop() {
+	time = 0;																				// reset the value of time from the last loop
+																							// this is outside of the if statement so that
+																							// incase there is a long delay between starting
+																							// the Arduino and beginning the ISR, the value of
+	to_do=run_main_function;																// time does not overflow the size alotted to an int
+
 	if (to_do==run_main_function) {															// only begin motion when the ISR has
+		digitalWrite(freq_ex, HIGH);															// turn on the freq_ex to show the sampling is running
 																							// been activated, ie the button pressed
-		while (contact(legTL, legTR, legBL, legBR, tlLED, trLED, blLED, brLED)) {			// check the contact of all of the feet
+		while (contact(legTL, legTR, legBL, legBR, fLED)) {								// check the contact of all of the feet
 			planetary.write(90);															// when the robot is off of the board, stop
 																							// the planetary gears from spinning
 			eraser_in();																	// bring the planetary system up into the
@@ -129,6 +140,7 @@ void loop() {
 																							// the board, incase placed back on an angle
 		}
 		
+
 		while (check_force_all(legTL, legTR, legBL, legBR, ibTL, ibTR, ibBL, ibBR)==tooMuch) {
 			digitalWrite(warningLED, HIGH);													// light the LED symbolising too much force is
 																							// being applied
@@ -146,6 +158,12 @@ void loop() {
 			eraser.write(0);																// turn off the motor
 		}
 		magnitude = PD(eraser_pot, eKp, eKd);												// use PD to get the magnitude to drive the motor
+		if (magnitude < 0) {
+			magnitude = 0;
+		}
+		else if (magnitude > 90) {
+			magnitude = 90;
+		}
 		read = analogRead(eraser_pot);														// record the position of the pot
 		if (pot_to_force(k, eIa, eIb, eXa, eXb, analogRead(eraser_pot)) > eraser_force) {	// set direction to spin the motor
 			logic_in();
@@ -154,17 +172,23 @@ void loop() {
 			logic_out();
 		}
 		eraser.write(magnitude);
+		digitalWrite(freq_ex, LOW);														// turn off the freq_ex pin
+		while (time > 1) {
+			
+		}																// while the full period has not elapsed yet, wait
 	}
 }
 
-void logic_in() {
-	digitalWrite(a1, HIGH);
-	digitalWrite(a2, LOW);
+int logic_in(int mag) {
+	return 180-mag;
 }
 
-void logic_out() {
-	digitalWrite(a1, LOW);
-	digitalWrite(a2, HIGH);
+int logic_out() {
+	return mag;
 }
 
-void eraser_in() {}	// not actual function, placeholder so it will compile
+void eraser_in() {
+	while (eLimI != 0) {		// while the eraser has not moved in
+		eraser.write(40);		// turn the motor to turn in
+	}
+}	// not actual function, placeholder so it will compile
