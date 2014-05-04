@@ -56,4 +56,6 @@ boolean contact(int oneF, int twoF, int threeF, int fourF, int led) {
 	else {													// if not
 		digitalWrite(led, LOW);								// shut off the LED
 	}
+
+	return all;
 }
