@@ -24,40 +24,39 @@ Servo eraser;						// Servo which moves the eraser into the robot and out
 									// of the robot
 
 // pins of each servo/motor
-int planetary_pin = -1;				// pin of the planetary Servo
-int hook_pin = -1;					// pin of the hook Servo
-int eraser_pin = 1;					// pin of the eraser Servo
+int planetary_pin = 11;				// pin of the planetary Servo
+int hook_pin = 10;					// pin of the hook Servo
+int eraser_pin = 9;					// pin of the eraser Servo
 
 // pins
-int legTL = -1;						// pin to the pot of the top left foot
-int legTR = -1;						// pin to the pot of the top right foot
-int legBL = -1;						// pin to the pot of the bottom left foot
-int legBR = -1;						// pin to the pot of the bottom right foot
+int legTL = A0;						// pin to the pot of the top left foot
+int legTR = A1;						// pin to the pot of the top right foot
+int legBL = A2;						// pin to the pot of the bottom left foot
+int legBR = A3;						// pin to the pot of the bottom right foot
 
 int eraser_pot = A8;				// pin to the pot of the eraser
-int hook_pot = -1;					// pin to the pot of the hook
-int buttonISR = -1;					// pin to the button which starts the ISR
+int buttonISR = 2;					// pin to the button which starts the ISR
 
-int eLimO = -1;						// pin of the outter limit switch for the eraser
-int eLimI = -1;						// pin of the inner limit switch for the eraser
+int eLimO = 31;						// pin of the outter limit switch for the eraser
+int eLimI = 37;						// pin of the inner limit switch for the eraser
 
 // LEDs
-int warningLED = -1;				// pin to the warning LED
-int fLED = -1;						// pin to light when the feet are making contact
+int warningLED = 22;				// pin to the warning LED
+int fLED = 23;						// pin to light when the feet are making contact
 
 // PD
-int eKp = -1;						// the Kp value of the eraser
-int eKd = -1;						// the Kd value of the eraser
+int eKp = 125;						// the Kp value of the eraser
+int eKd = 1000;						// the Kd value of the eraser
 int magnitude = 90;					// the magnitude to drive the motor
 int read = 0;						// the read of the motor in order to logic the direction
-int a1 = -1;						// logic pin 1 of H bridge
-int a2 = -1;						// logic pin 2 of H bridge
+int a1 = 34;						// logic pin 1 of H bridge
+int a2 = 35;						// logic pin 2 of H bridge
 
 // motor speeds
-int planetary_speed = -1;			// the speed at which the planetary motor spins
+int planetary_speed = 130;			// the speed at which the planetary motor spins
 
 // Frequency Example
-int freq_ex = 31;					// the pin to show the sampling frequency
+int freq_ex = 29;					// the pin to show the sampling frequency
 
 // Global variables
 extern int eraser_force;			// the force to be applied by the eraser
@@ -97,14 +96,16 @@ void setup() {
 	pinMode(warningLED, OUTPUT);								// set the LEDs to OUTPUT
 	pinMode(fLED, OUTPUT);
 
+	pinMode(eLimI, INPUT);										// set the limit switches to INPUT
+	pinMode(eLimO, INPUT);
+
 	// init ISR
-	attachInterrupt(-1, start_button_ISR, RISING);				// initialize ISR
+	attachInterrupt(0, start_button_ISR, RISING);				// initialize ISR
 																// activates upon button press
 																// while the ISR will run if the
 																// button is pressed again, there
 																// will be no lasting effect other
 																// than a small time delay
-																// **** -1 must be changed ****
 
 	// TimerOne ISR
 	Timer1.initialize(t1);										// initialize the timer to the

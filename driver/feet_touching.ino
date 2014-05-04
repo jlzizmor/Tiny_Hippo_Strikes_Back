@@ -9,7 +9,7 @@
  * Contact of a foot is checked for an individual foot.
 */
 
-int min_read = -1;						// the minimum analog read value which represents no
+int min_read = 125;						// the minimum analog read value which represents no
 										// contact between a foot and the board
 
 // check to see if the reading from the given foot is equal to or less than the minimum

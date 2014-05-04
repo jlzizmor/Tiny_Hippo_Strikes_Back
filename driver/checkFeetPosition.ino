@@ -9,11 +9,6 @@
  *
  */
 
-//Move these to globals
-int balance = 0;             //When robot is in balanced position
-int topHeavy = 1;            //When the top of the robot is leaning into the board 
-int bottomHeavy = -1;        //When the bottom of the robot is leaning into the board
-
 //All Vcc legs are the same
 //This function reads in values from pins connected to pots
 //the value is the pot value at a given position
