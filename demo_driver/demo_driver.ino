@@ -1,3 +1,13 @@
+/* Jacob Zizmor
+ * Group 1
+ * Tiny Hippo
+ *
+ * RBE 2002
+ * D02 '14
+ *
+ * Demo Driver Program
+*/
+
 #include "Servo.h"
 #include <pot_to_force.ino>
 #include <pot_to_pos.ino>
