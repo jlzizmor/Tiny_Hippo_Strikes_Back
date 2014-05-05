@@ -49,8 +49,10 @@ void hook_adjust(int pin1, int pin2, int pin3, int pin4){
 		//otherwise the robot should be balanced
 		else {
 			hook.write(90); //stops the motor //otherwise stop the motor
-				check_balance = checkFeetPosition(pin1,pin2,pin3,pin4); //resets the balance check to it's proper value
-		}		
+		}
+		check_balance = checkFeetPosition(pin1,pin2,pin3,pin4); //resets the balance check to it's proper value
+		int frontswitch = analogRead(front_rail_switch); //reset value
+		int backswitch = analogRead(back_rail_switch); // reset value
 	}
 
 	hook.write(90); //stops the motor in case it is still running

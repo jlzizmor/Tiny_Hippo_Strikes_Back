@@ -128,7 +128,6 @@ void loop() {
 																							// this is outside of the if statement so that
 																							// incase there is a long delay between starting
 																							// the Arduino and beginning the ISR, the value of
-	to_do=run_main_function;																// time does not overflow the size alotted to an int
 
 	if (to_do==run_main_function) {															// only begin motion when the ISR has
 		digitalWrite(freq_ex, HIGH);															// turn on the freq_ex to show the sampling is running
@@ -156,7 +155,7 @@ void loop() {
 
 		// run PD for eraser
 		if ((digitalRead(eLimI)==1) || (digitalRead(eLimO)==1)) {							// if the eraser is at either extreme of its movement
-			eraser.write(0);																// turn off the motor
+			eraser.write(90);																// turn off the motor
 		}
 		magnitude = PD(eraser_pot, eKp, eKd);												// use PD to get the magnitude to drive the motor
 		if (magnitude < 0) {
@@ -174,7 +173,7 @@ void loop() {
 		}
 		eraser.write(magnitude);
 		digitalWrite(freq_ex, LOW);														// turn off the freq_ex pin
-		while (time > 1) {
+		while (time < 1) {
 			
 		}																// while the full period has not elapsed yet, wait
 	}
