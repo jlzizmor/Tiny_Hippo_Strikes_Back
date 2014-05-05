@@ -167,10 +167,10 @@ void loop() {
 		}
 		read = analogRead(eraser_pot);														// record the position of the pot
 		if (pot_to_force(k, eIa, eIb, eXa, eXb, analogRead(eraser_pot)) > eraser_force) {	// set direction to spin the motor
-			logic_in();
+			logic_in(magnitude);
 		}
 		else {
-			logic_out();
+			logic_out(magnitude);
 		}
 		eraser.write(magnitude);
 		digitalWrite(freq_ex, LOW);														// turn off the freq_ex pin
@@ -184,7 +184,7 @@ int logic_in(int mag) {
 	return 180-mag;
 }
 
-int logic_out() {
+int logic_out(int mag) {
 	return mag;
 }
 
@@ -192,4 +192,4 @@ void eraser_in() {
 	while (eLimI != 0) {		// while the eraser has not moved in
 		eraser.write(40);		// turn the motor to turn in
 	}
-}	// not actual function, placeholder so it will compile
+}
