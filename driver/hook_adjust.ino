@@ -43,7 +43,7 @@ void hook_adjust(int pin1, int pin2, int pin3, int pin4){
 
 		//if the robot is bottomheavy
 		else if(checkFeetPosition(pin1, pin2, pin3, pin4) == bottomHeavy){
-			hook.write(hookspeed-180); //shift the hook backwards
+			hook.write(180-hookspeed); //shift the hook backwards
 		}
 
 		//otherwise the robot should be balanced
